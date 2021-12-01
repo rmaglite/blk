@@ -42,7 +42,7 @@ jobs:
           repository: jayenroub/rptreum
 
           # Note: tags has to be all lower-case
-          tags: latest
+          tags: jayroub/rptreum:latest
           # build on feature branches, push only on main branch
           push: true
 
