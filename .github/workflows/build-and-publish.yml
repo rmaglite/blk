@@ -42,7 +42,7 @@ jobs:
           context: https://raw.githubusercontent.com/jayenroub/rptreum/main/Dockerfile
 
           # Note: tags has to be all lower-case
-          tags: jayroub/rptreum:latest
+          tags: rptreum/rptreum:latest
           # build on feature branches, push only on main branch
           push: true
 
