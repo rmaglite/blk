@@ -39,11 +39,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
-          context: /jayenroub/rptreum
+          context: rptreum
+          file: rptreum/Dockerfile
 
           # Note: tags has to be all lower-case
           tags: |
-            oskardudycz/eventsourcing.nodejs.rotreum:latest 
+            oskardudycz/eventsourcing.nodejs.rptreum:latest 
             ghcr.io/oskardudycz/eventsourcing.nodejs/rptreum:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/main' }}
