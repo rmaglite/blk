@@ -44,7 +44,8 @@ jobs:
           # Note: tags has to be all lower-case
           tags: latest
           # build on feature branches, push only on main branch
-          push: true
+          load: true
+          run: docker push ${{ env.IMAGE }}:${{ env.GIT_SHA }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
