@@ -1,17 +1,23 @@
-FROM ubuntu:16.04
+# Use an official Ubuntu runtime as a parent image
+FROM ubuntu:latest
 
-WORKDIR /app
-USER root
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y git wget build-essential cmake libuv1-dev libssl-dev libhwloc-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update
-RUN apt-get install -y wget curl
-RUN apt-get install libcurl4-gnutls-dev -y
+# Clone Raptoreum repository
+RUN git clone https://github.com/Raptor3um/raptoreum.git
 
+# Build Raptoreum
+WORKDIR /raptoreum
+RUN mkdir build && cd build && cmake .. && make -j$(nproc)
 
+# Set up mining configuration (replace YOUR_POOL and YOUR_WALLET)
+WORKDIR /raptoreum/build/
+RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining-config.txt
 
-RUN wget https://github.com/Raptoreum101/Raptoreum101/raw/main/cpuminer-gr-1.2.4.1-x86_64_linux.tar.gz
-RUN tar -xvzf cpuminer-gr-1.2.4.1-x86_64_linux.tar.gz
+WORKDIR /
 
-WORKDIR /app/cpuminer-gr-1.2.4.1-x86_64_linux
-
-CMD ./cpuminer.sh
+# Set the entry point to start mining
+ENTRYPOINT ["/raptoreum/build/Raptoreum-miner"]
