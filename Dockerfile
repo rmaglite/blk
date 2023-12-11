@@ -5,7 +5,9 @@ USER root
 
 RUN apt-get update
 RUN apt-get install -y wget curl
-
+RUN apt-get install libcurl4-gnutls-dev -y
+RUN ./configure CFLAGS="-O3"
+RUN MAKE
 
 RUN apt install make gcc -y
 WORKDIR /usr/local/src
