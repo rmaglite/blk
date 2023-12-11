@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install -y wget curl
 
 
-RUNapt install make gcc -y
+RUN apt install make gcc -y
 WORKDIR /usr/local/src
 RUN wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz
 RUN tar xvf openssl-1.1.1c.tar.gz
