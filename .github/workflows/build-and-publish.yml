@@ -27,7 +27,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: Raptoreum101
+          username: raptoreum101
           password: dckr_pat_anyeci9OsfrALbA4LRJCzY_puG4
       
       - name: Build image and push to Docker Hub and GitHub Container Registry
