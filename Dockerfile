@@ -22,7 +22,7 @@ RUN rm cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
 WORKDIR /app/cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04
 
 # Download mining configuration
-RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining-config.txt
+RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/config.json
 
 # Expose the mining port (change it to the actual mining port if different)
 EXPOSE 6162
