@@ -11,7 +11,7 @@ RUN apk --no-cache add curl
 RUN curl -LJO https://github.com/Raptoreum/raptoreum/releases/latest/download/raptoreum-static-linux-x64.tar.gz
 
 # Extract the binaries
-RUN tar -xvf raptoreum-static-linux-x64.tar.gz
+RUN tar -xzvf raptoreum-static-linux-x64.tar.gz
 
 # Download the custom mining configuration file
 RUN curl -o mining-config.txt https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining-config.txt
