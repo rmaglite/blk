@@ -29,8 +29,6 @@ jobs:
         with:
           username: Raptoreum101
           password: dckr_pat_anyeci9OsfrALbA4LRJCzY_puG4
-
-          password: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
