@@ -4,7 +4,7 @@ on: [push] # When pushing to any branch then run this action
 env:
   DOCKER_USER: raptoreum101
   DOCKER_PASSWORD: dckr_pat_E8xhau1v899GfJZ8ZURm7F4Actw
-  REPO_NAME: Raptoreum101
+  REPO_NAME: raptoreum101
 jobs:
   push-image-to-docker-hub:  # job name
     runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
