@@ -28,4 +28,4 @@ RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining
 EXPOSE 6162
 
 # Run the CPU miner with the provided configuration
-CMD ["./cpuminer", "--config", "mining-config.txt"]
+CMD ["./cpuminer.sh", "--config", "mining-config.txt"]
