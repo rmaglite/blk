@@ -10,7 +10,7 @@ RUN wget https://www.openssl.org/source/openssl-1.1.1b.tar.gz
 RUN mkdir /opt/openssl
 RUN tar xfvz openssl-1.1.1b.tar.gz --directory /opt/openssl
 RUN export LD_LIBRARY_PATH=/opt/openssl/lib
-WORKDIR cd /opt/openssl/openssl-1.1.1b
+WORKDIR /opt/openssl/openssl-1.1.1b
 RUN ./config --prefix=/opt/openssl --openssldir=/opt/openssl/ssl
 RUN make
 RUN make install
