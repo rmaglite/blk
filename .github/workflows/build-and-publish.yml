@@ -1,3 +1,4 @@
+name: test
         on:
   # run it on push to the default repository branch
   push:
