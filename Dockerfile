@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y git wget build-essential cmake libuv1-dev libssl-dev libhwloc-dev && \
+    apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev libboost-all-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Clone Raptoreum repository
@@ -21,3 +21,4 @@ WORKDIR /
 
 # Set the entry point to start mining
 ENTRYPOINT ["/raptoreum/build/Raptoreum-miner"]
+
