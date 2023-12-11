@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y wget libcurl4 && \
+    apt-get install -y wget libcurl4 libjansson4 && \
     rm -rf /var/lib/apt/lists/*
 
 # Download CPU miner from GitHub
