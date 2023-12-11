@@ -29,13 +29,11 @@ jobs:
         with:
           username: raptoreum101
           password: dckr_pat_anyeci9OsfrALbA4LRJCzY_puG4
+          
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
-        with:
-          dockerfile:Dockerfile
-          # Note: tags has to be all lower-case
-          # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/main' }}
-
+        context: .
+          file: ./Dockerfile
+          push: true
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
