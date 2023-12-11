@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:trusty
 
 WORKDIR /app
 USER root
