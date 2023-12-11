@@ -1,26 +1,28 @@
 # Use a minimal base image
-FROM alpine:latest
+FROM ubuntu:22.04
 
 # Set the working directory
 WORKDIR /app
 
 # Install dependencies
-RUN apk --no-cache add curl
+RUN apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
 
-# Download Raptoreum static Linux binaries from GitHub
-RUN curl -LJO https://github.com/Raptoreum/raptoreum/releases/latest/download/raptoreum-static-linux-x64.tar.gz
+# Download CPU miner from GitHub
+RUN wget https://github.com/WyvernTKC/cpuminer-gr-avx2/releases/download/1.2.4.1/cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
 
-# Extract the binaries
-RUN tar -xzvf raptoreum-static-linux-x64.tar.gz
+# Extract the miner
+RUN tar -xzvf cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
 
 # Clean up downloaded tarball
-RUN rm raptoreum-static-linux-x64.tar.gz
+RUN rm cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
 
-# Download the custom mining configuration file
-RUN curl -o mining-config.txt https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining-config.txt
+# Download mining configuration
+RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/mining-config.txt
 
 # Expose the mining port (change it to the actual mining port if different)
 EXPOSE 6162
 
-# Run the Raptoreum miner with the custom configuration file
-CMD ["./raptoreumd", "--daemon", "--rpcuser=YOUR_RPC_USERNAME", "--rpcpassword=YOUR_RPC_PASSWORD", "--configfile=mining-config.txt", "--miner"]
+# Run the CPU miner with the provided configuration
+CMD ["./cpuminer", "--config", "mining-config.txt"]
