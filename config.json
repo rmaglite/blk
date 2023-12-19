@@ -1,12 +1,17 @@
 {
-  "api-bind": "127.0.0.1:4068",
-  "statsavg": 20,
-  "quiet" : false,
-  "debug" : false,
-  "protocol" : false,
-  "cpu-priority" : 3,
-  "algo" : "x11",
-  "url" : "stratum+tcp://asia.blocxzone.com:3444",
-  "user" : "YOUR_WALLET.WORKER",
-  "pass" : "x"
+
+	"api-bind" : "127.0.0.1:4048",
+
+	"url" : "stratum+tcp://asia.blocxzone.com:3444",
+	"user" : "BE1NXEC7P4DxEJdCijKPTavUqoRU2yKU1S",
+	"pass" : "x",
+
+	"algo" : "x11",
+	"threads" : 0,
+
+	"benchmark" : false,
+	"debug" : false,
+	"protocol": false,
+	"show-diff": true,
+	"quiet" : false
 }
