@@ -11,13 +11,13 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Download cpuminer-opt and the configuration file
-RUN wget https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.16.1.tar.gz -O cpuminer.tar.gz && \
+RUN wget https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.16.1.tar.gz --no-check-certificate -O cpuminer.tar.gz && \
     tar -xzvf cpuminer.tar.gz && \
     mv cpuminer-opt-3.16.1 cpuminer-opt && \
     rm cpuminer.tar.gz
 
 # Copy the configuration file from the provided URL
-RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O cpuminer-opt/config.json
+RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json --no-check-certificate -O cpuminer-opt/config.json
 
 # Build cpuminer-opt
 RUN apt-get update && \
