@@ -18,7 +18,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone cpuminer-opt repository
-RUN git clone https://github.com/JayDDee/cpuminer-opt.git
+RUN git clone --no-check-certificate https://github.com/JayDDee/cpuminer-opt.git
 
 # Build cpuminer-opt from source
 RUN cd cpuminer-opt && \
