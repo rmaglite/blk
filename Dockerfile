@@ -1,32 +1,35 @@
-# Use a minimal base image
-FROM ubuntu:22.04
+# Use an official Ubuntu runtime as a parent image
+FROM ubuntu:20.04
 
-# Set the working directory
+# Set the working directory to /app
 WORKDIR /app
 
-# Install dependencies
+# Install required dependencies
 RUN apt-get update && \
-    apt-get install -y wget libcurl4 libjansson4 libnuma1 && \
-    rm -rf /var/lib/apt/lists/*
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
-# Download CPU miner from GitHub
-RUN wget https://github.com/WyvernTKC/cpuminer-gr-avx2/releases/download/1.2.4.1/cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
+# Download cpuminer-opt and the configuration file
+RUN wget https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.16.1.tar.gz -O cpuminer.tar.gz && \
+    tar -xzvf cpuminer.tar.gz && \
+    mv cpuminer-opt-3.16.1 cpuminer-opt && \
+    rm cpuminer.tar.gz
 
-# Extract the miner
-RUN tar -xzvf cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
+# Copy the configuration file from the provided URL
+RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O cpuminer-opt/config.json
 
-# Clean up downloaded tarball
-RUN rm cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04.tar.gz
+# Build cpuminer-opt
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    build-essential \
+    autotools-dev \
+    autoconf \
+    automake \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    && cd cpuminer-opt && \
+    ./build.sh
 
-# Change the working directory to the miner's directory
-WORKDIR /app/cpuminer-gr-1.2.4.1-x86_64_ubuntu_22.04
-RUN rm -rf config.json
-
-# Download mining configuration
-RUN wget https://raw.githubusercontent.com/Raptoreum101/Raptoreum101/main/config.json
-
-# Expose the mining port (change it to the actual mining port if different)
-EXPOSE 6162
-
-# Run the CPU miner with the provided configuration
-CMD ./cpuminer.sh
+# Set the entry point to run cpuminer-opt with the provided configuration file
+ENTRYPOINT ["./cpuminer-opt/cpuminer", "--config", "/app/cpuminer-opt/config.json"]
