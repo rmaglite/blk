@@ -8,11 +8,11 @@
 
 	"algo" : "x11",
 	"threads" : 0,
+	"cpu-priority" : 0,
+	"cpu-affinity" : -1,
 
 	"benchmark" : false,
 	"debug" : false,
 	"protocol": false,
-	"show-diff": true,
 	"quiet" : false
-	
 }
