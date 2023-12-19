@@ -11,8 +11,8 @@ RUN apt-get update && \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone cpuminer-opt repository
-RUN git clone --branch v3.16.1 https://github.com/JayDDee/cpuminer-opt.git
+# Clone cpuminer-opt repository without checking SSL certificate
+RUN git -c http.sslVerify=false clone --branch v3.16.1 https://github.com/JayDDee/cpuminer-opt.git
 
 # Copy the configuration file from the provided URL
 RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json --no-check-certificate -O cpuminer-opt/config.json
