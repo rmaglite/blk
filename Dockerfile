@@ -32,4 +32,4 @@ RUN apt-get update && \
     ./build.sh
 
 # Set the entry point to run cpuminer-opt with the provided configuration file
-ENTRYPOINT ["./cpuminer-opt/cpuminer", "--config", "/app/cpuminer-opt/config.json"]
+ENTRYPOINT ["./app/cpuminer-opt/cpuminer", "--config", "/app/cpuminer-opt/config.json"]
