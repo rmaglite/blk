@@ -15,10 +15,12 @@ RUN apt-get update && \
     libssl-dev \
     libcurl4-openssl-dev \
     libjansson-dev \
+    libgmp-dev \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone cpuminer-opt repository with SSL certificate verification disabled
-RUN env GIT_SSL_NO_VERIFY=true git clone --no-checkout https://github.com/JayDDee/cpuminer-opt.git && \
+RUN GIT_SSL_NO_VERIFY=true git clone --no-checkout https://github.com/JayDDee/cpuminer-opt.git && \
     cd cpuminer-opt && \
     git reset --hard HEAD
 
