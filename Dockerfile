@@ -7,7 +7,7 @@ WORKDIR /app
 # Install required dependencies
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    wget \
+    git \
     build-essential \
     autotools-dev \
     autoconf \
@@ -17,17 +17,17 @@ RUN apt-get update && \
     libjansson-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and extract cpuminer-opt source code
-RUN wget --no-check-certificate https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.23.2.tar.gz && \
-    tar -xzvf v3.23.2.tar.gz && \
-    rm v3.23.2.tar.gz
+# Clone cpuminer-opt repository
+RUN git clone https://github.com/JayDDee/cpuminer-opt.git
 
 # Build cpuminer-opt from source
-RUN cd cpuminer-opt-3.23.2 && \
-    ./build.sh
+RUN cd cpuminer-opt && \
+    ./autogen.sh && \
+    CFLAGS="-O3 -march=native -Wall" ./configure --with-curl && \
+    make
 
 # Copy the configuration file from the provided URL
 RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
 # Set the entry point to run cpuminer-opt with the provided configuration file
-ENTRYPOINT ["./app/cpuminer-opt-3.23.2/cpuminer", "--config", "/app/config.json"]
+ENTRYPOINT ["./app/cpuminer-opt/cpuminer", "--config", "/app/config.json"]
