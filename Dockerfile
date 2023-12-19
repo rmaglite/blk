@@ -8,7 +8,6 @@ WORKDIR /app
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git \
-    wget \
     build-essential \
     autotools-dev \
     autoconf \
@@ -21,20 +20,19 @@ RUN apt-get update && \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone cpuminer-opt repository with SSL certificate verification disabled
-RUN GIT_SSL_NO_VERIFY=true git clone --no-checkout https://github.com/JayDDee/cpuminer-opt.git && \
-    cd cpuminer-opt && \
-    git reset --hard HEAD
+# Clone cpuminer-multi repository with SSL certificate verification disabled
+RUN git clone --no-checkout https://github.com/tpruvot/cpuminer-multi.git && \
+    cd cpuminer-multi && \
+    git checkout v1.3.1-multi
 
-# Build cpuminer-opt from source
-RUN cd cpuminer-opt && \
-    ./autogen.sh && \
-    CFLAGS="-O3 -march=native -Wall" ./configure --with-curl && \
-    make
-    
-RUN cd cpuminer-opt
-# Copy the configuration file from the provided URL
+# Copy the config.json file from the provided URL
 RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
-# Set the entrypoint to run a shell instead of the cpuminer command
-ENTRYPOINT ["./cpuminer-opt/cpuminer", "--config", "config.json"]
+# Build cpuminer-multi from source using build.sh
+RUN cd cpuminer-multi && \
+    chmod +x build.sh && \
+    ./build.sh
+
+# Set the entrypoint to run cpuminer with the config.json file
+ENTRYPOINT ["./cpuminer-multi/cpuminer"]
+CMD ["--config", "/app/config.json"]
