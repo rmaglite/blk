@@ -19,4 +19,4 @@ jobs:
     - name: Build the Docker image # push The image to the docker hub
       run: docker build . --file Dockerfile --tag blckx/blckx:latest
     - name: Docker Push
-      run: docker push $DOCKER_USER/$REPO_NAME:latest
+      run: docker push blckx/blckx:latest
