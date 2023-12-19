@@ -16,6 +16,7 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     libjansson-dev \
     libgmp-dev \
+    zlib1g-dev \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
