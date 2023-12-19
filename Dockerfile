@@ -8,15 +8,26 @@ WORKDIR /app
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     wget \
+    build-essential \
+    autotools-dev \
+    autoconf \
+    automake \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    libjansson-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Download pre-built cpuminer-opt binaries
-RUN wget --no-check-certificate https://github.com/JayDDee/cpuminer-opt/releases/download/v3.16.1/cpuminer-opt-linux.tar.gz && \
-    tar -xzvf cpuminer-opt-linux.tar.gz && \
-    rm cpuminer-opt-linux.tar.gz
+# Download and extract cpuminer-opt source code
+RUN wget https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.15.tar.gz && \
+    tar -xzvf v3.15.tar.gz && \
+    rm v3.15.tar.gz
+
+# Build cpuminer-opt from source
+RUN cd cpuminer-opt-3.15 && \
+    ./build.sh
 
 # Copy the configuration file from the provided URL
-RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
+RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json --no-check-certificate -O config.json
 
 # Set the entry point to run cpuminer-opt with the provided configuration file
-ENTRYPOINT ["./cpuminer", "--config", "/app/config.json"]
+ENTRYPOINT ["./app/cpuminer-opt-3.15/cpuminer", "--config", "/app/config.json"]
