@@ -2,8 +2,8 @@ name: This a workflow title
 on: [push] # When pushing to any branch then run this action
 # Env variable
 env:
-  DOCKER_USER: ${{ secrets.USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.PASSWORD }}
+  DOCKER_USER: rufusmaglite@gmail.com
+  DOCKER_PASSWORD: dckr_pat_JaidFh9lMtF-1qkOdk8CaoGMNYU
   REPO_NAME: blckx
 jobs:
   push-image-to-docker-hub:  # job name
