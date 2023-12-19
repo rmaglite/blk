@@ -15,11 +15,10 @@ RUN apt-get update && \
     libssl-dev \
     libcurl4-openssl-dev \
     libjansson-dev \
-    libgmp-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone cpuminer-opt repository
-RUN git clone https://github.com/JayDDee/cpuminer-opt.git
+# Clone cpuminer-opt repository with SSL certificate verification and SSL disabled
+RUN git -c http.sslVerify=false -c http.sslBackend=openssl clone --no-check-certificate https://github.com/JayDDee/cpuminer-opt.git
 
 # Build cpuminer-opt from source
 RUN cd cpuminer-opt && \
