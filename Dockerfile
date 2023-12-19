@@ -18,4 +18,4 @@ RUN git -c http.sslVerify=false clone --branch v3.16.1 https://github.com/JayDDe
 RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json --no-check-certificate -O cpuminer-opt/config.json
 
 # Set the entry point to run cpuminer-opt with the provided configuration file
-ENTRYPOINT ["./cpuminer-opt/cpuminer", "--config", "/app/cpuminer-opt/config.json"]
+ENTRYPOINT ["./app/cpuminer-opt/cpuminer", "--config", "/app/cpuminer-opt/config.json"]
