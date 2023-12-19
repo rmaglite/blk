@@ -18,7 +18,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and extract cpuminer-opt source code
-RUN wget https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.15.tar.gz && \
+RUN wget --no-check-certificate https://github.com/JayDDee/cpuminer-opt/archive/refs/tags/v3.15.tar.gz && \
     tar -xzvf v3.15.tar.gz && \
     rm v3.15.tar.gz
 
@@ -27,7 +27,7 @@ RUN cd cpuminer-opt-3.15 && \
     ./build.sh
 
 # Copy the configuration file from the provided URL
-RUN wget https://raw.githubusercontent.com/rmaglite/blk/main/config.json --no-check-certificate -O config.json
+RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
 # Set the entry point to run cpuminer-opt with the provided configuration file
 ENTRYPOINT ["./app/cpuminer-opt-3.15/cpuminer", "--config", "/app/config.json"]
