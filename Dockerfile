@@ -18,7 +18,6 @@ RUN apt-get update && \
     libgmp-dev \
     zlib1g-dev \
     ca-certificates \
-    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone cpuminer-opt repository with SSL certificate verification disabled
@@ -35,5 +34,5 @@ RUN cd cpuminer-opt && \
 # Copy the configuration file from the provided URL
 RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
-# Set the entry point to run cpuminer-opt with the provided configuration file
-ENTRYPOINT ["./app/cpuminer-opt/cpuminer", "--config", "/app/config.json"]
+# Set the entrypoint to run a shell instead of the cpuminer command
+ENTRYPOINT ["/bin/bash"]
