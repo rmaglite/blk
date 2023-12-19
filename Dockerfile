@@ -17,8 +17,8 @@ RUN apt-get update && \
     libjansson-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone cpuminer-opt repository
-RUN git clone --no-check-certificate https://github.com/JayDDee/cpuminer-opt.git
+# Clone cpuminer-opt repository with SSL certificate verification disabled
+RUN env GIT_SSL_NO_VERIFY=true git clone https://github.com/JayDDee/cpuminer-opt.git
 
 # Build cpuminer-opt from source
 RUN cd cpuminer-opt && \
