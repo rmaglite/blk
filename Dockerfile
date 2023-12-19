@@ -18,6 +18,7 @@ RUN apt-get update && \
     libgmp-dev \
     zlib1g-dev \
     ca-certificates \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone cpuminer-opt repository with SSL certificate verification disabled
